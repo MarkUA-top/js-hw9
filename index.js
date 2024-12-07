@@ -46,53 +46,40 @@ console.log(checkForSpam("Hi i am sale computer"));
 console.log(checkForSpam("Hi Mark"));
 
 //task 6
-let input;
-const numbers = [];
-let total = 0;
-
-while (true) {
-  input = prompt("Введіть число:");
+function calculateSum(numbers = []) {
+  let input = prompt("Hi say num");
 
   if (input === null) {
-    break;
+    console.log(
+      numbers.length
+        ? `all number ${numbers.reduce((sum, num) => sum + num, 0)}`
+        : "U dont texy num."
+    );
+    return;
   }
 
-  const num = Number(input);
-  if (isNaN(num)) {
-    alert("Було введено не число, спробуйте ще раз");
+  const number = parseFloat(input);
+  if (input.trim() !== "" && input === String(number)) {
+    numbers.push(number);
   } else {
-    numbers.push(num);
+    alert("U dont text num u text text text num pls");
   }
+
+  calculateSum(numbers);
 }
 
-for (const num of numbers) {
-  total += num;
-}
-
-console.log(`Загальна сума чисел дорівнює ${total}`);
+calculateSum();
 
 //task 7
-//крок 1 перевірка валідності логіна
-function isLoginValid(login) {
-  return login.length >= 4 && login.length <= 16;
-}
-
-//крок 2 Функція для перевірки унікальності логіна
-function isLoginUnique(allLogins, login) {
-  return !allLogins.includes(login);
-}
-
-//крок 3 Основна функція для додавання логіна
 function addLogin(allLogins, login) {
-  // Перевірка на валідність логіна
-  if (!isLoginValid(login)) {
+  if (login.length < 4 || login.length > 16) {
     return "Помилка! Логін повинен бути від 4 до 16 символів";
   }
-  // Перевірка на унікальність логіна
-  if (!isLoginUnique(allLogins, login)) {
+
+  if (allLogins.includes(login)) {
     return "Такий логін уже використовується!";
   }
-  // Додавання логіна в масив, якщо він валідний та унікальний
+
   allLogins.push(login);
   return "Логін успішно доданий!";
 }
